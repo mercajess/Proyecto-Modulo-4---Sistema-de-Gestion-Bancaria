@@ -1,0 +1,10 @@
+{
+  "name": "proyecto-modulo-4",
+  "version": "0.1.0",
+  "description": "Proyecto integrador Modulo 4 - Sistema de Gestion Bancaria",
+  "main": "js/main.js",
+  "type": "module",
+  "scripts": {},
+  "author": "Juan Suarez",
+  "license": "ISC"
+}

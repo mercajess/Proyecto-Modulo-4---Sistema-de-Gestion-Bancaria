@@ -1,0 +1,46 @@
+/* ========================================= 
+   RESETEO GENERAL
+========================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ========================================= 
+   CONFIGURACIÓN GENERAL DE LA PÁGINA 
+========================================= */
+body {
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f6f8;
+    color: #1f2937;
+}
+
+/* ========================================= 
+   CONTENEDOR PRINCIPAL 
+========================================= */
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px;
+    text-align: center;
+}
+
+/* ========================================= 
+   TÍTULO PRINCIPAL 
+========================================= */
+.app h1 {
+    font-size: 2rem;
+}
+
+/* ========================================= 
+   PÁRRAFOS 
+========================================= */
+.app p {
+    font-size: 1rem;
+}

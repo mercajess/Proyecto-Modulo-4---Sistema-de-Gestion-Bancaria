@@ -12,12 +12,13 @@ El objetivo es desarrollar progresivamente un sistema bancario utilizando JavaSc
 - ECMAScript Modules
 - Node.js
 - npm
+- LocalStorage
 - Git
 - GitHub
 
 ## Arquitectura
 
-El proyecto utilizará las siguientes capas:
+El proyecto utiliza las siguientes capas:
 
 - Models
 - Services
@@ -25,25 +26,3 @@ El proyecto utilizará las siguientes capas:
 - Utils
 - Tests
 
-## Funcionalidades previstas
-
-Durante las siguientes versiones se desarrollarán:
-
-- Registro de usuarios.
-- Inicio de sesión.
-- Gestión de cuentas.
-- Depósitos.
-- Transferencias.
-- Historial de movimientos.
-- Persistencia con LocalStorage.
-- Manipulación del DOM.
-- Manejo de eventos.
-- Validaciones.
-- Formateadores.
-- Librerías visuales.
-- Pruebas automatizadas con Jest.
-- Git y GitHub.
-
-## Versión actual
-
-v0.1.0 — Estructura inicial del proyecto.

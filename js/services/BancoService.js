@@ -52,6 +52,64 @@ class BancoService {
         return { usuario, cuentas };
     }
 
+    actualizarUsuario(usuarioId, { nombre, email, telefono }) {
+        this.recargarBanco();
+        const usuario = this.banco.buscarUsuarioPorId(usuarioId);
+        if (!usuario) {
+            throw new Error('El usuario no existe.');
+        }
+
+        usuario.nombre = nombre.trim();
+        usuario.email = email.trim();
+        usuario.telefono = telefono.trim();
+
+        // Actualizar datos en sesión activa y base de datos
+        storageService.guardar(STORAGE_KEYS.SESION, usuario);
+        this.guardarEstado();
+
+        return usuario;
+    }
+
+    cambiarPassword(usuarioId, passwordActual, passwordNueva) {
+        this.recargarBanco();
+        const usuario = this.banco.buscarUsuarioPorId(usuarioId);
+        if (!usuario) {
+            throw new Error('El usuario no existe.');
+        }
+
+        if (usuario.password !== passwordActual) {
+            throw new Error('La contraseña actual es incorrecta.');
+        }
+
+        if (!passwordNueva || passwordNueva.length < 6) {
+            throw new Error('La nueva contraseña debe tener al menos 6 caracteres.');
+        }
+
+        usuario.password = passwordNueva;
+
+        // Actualizar sesión activa
+        storageService.guardar(STORAGE_KEYS.SESION, usuario);
+        this.guardarEstado();
+
+        return true;
+    }
+
+    eliminarUsuario(usuarioId) {
+        this.recargarBanco();
+        const cuentas = this.banco.obtenerCuentasDeUsuario(usuarioId);
+        const tieneSaldo = cuentas.some((c) => c.saldo > 0);
+
+        if (tieneSaldo) {
+            throw new Error('No puedes eliminar la cuenta si aún tienes saldo disponible.');
+        }
+
+        this.banco.usuarios = this.banco.usuarios.filter((u) => u.id !== usuarioId);
+        this.banco.cuentas = this.banco.cuentas.filter((c) => c.usuarioId !== usuarioId);
+
+        this.guardarEstado();
+        return true;
+    }
+
     realizarDeposito({ cuentaId, monto, descripcion }) {
         this.recargarBanco();
         const movimiento = this.banco.realizarDeposito({ cuentaId, monto, descripcion });

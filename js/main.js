@@ -221,17 +221,17 @@ console.log(
     'Banco recuperado:',
     bancoDemo,
 );
-
+//mostrar usuarios
 console.log(
     'Usuarios almacenados:',
     bancoDemo.usuarios,
 );
-
+//mostrar cuentas
 console.log(
     'Cuentas almacenadas:',
     bancoDemo.cuentas,
 );
-
+//mostrar movimientos
 console.log(
     'Movimientos almacenados:',
     bancoDemo.movimientos,

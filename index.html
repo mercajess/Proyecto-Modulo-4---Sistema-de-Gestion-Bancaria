@@ -1,20 +1,253 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Gestión Bancaria</title>
+    <title>Acceso | Sistema de Gestión Bancaria</title>
     <link rel="stylesheet" href="./css/styles.css">
+    <style>
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .auth-card {
+            background-color: #ffffff;
+            padding: 36px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            width: min(420px, 100%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .auth-card h2 {
+            font-size: 1.5rem;
+            color: #111827;
+            text-align: center;
+        }
+
+        .auth-card p {
+            color: #6b7280;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .auth-tabs {
+            display: flex;
+            background-color: #f3f4f6;
+            padding: 4px;
+            border-radius: 8px;
+            gap: 4px;
+        }
+
+        .auth-tab-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: transparent;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #6b7280;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .auth-tab-btn.active {
+            background-color: #ffffff;
+            color: #111827;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .auth-form .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .auth-form label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .auth-form input {
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .auth-form input:focus {
+            border-color: #2563eb;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
 </head>
-<body>
 
-    <main class="app">
-        <h1>Sistema de Gestión Bancaria</h1>
-        <p>Proyecto Integrador — Módulo 4</p>
-        <p>Versión v0.5.0</p>
-    </main>
+<body class="app-auth">
 
-    <script type="module" src="./js/main.js"></script>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div>
+                <h2>Banco Digital</h2>
+                <p>Ingresa a tu banca en línea o crea una cuenta nueva.</p>
+            </div>
 
+            <div class="auth-tabs">
+                <button type="button" class="auth-tab-btn active" id="tabLogin">Iniciar sesión</button>
+                <button type="button" class="auth-tab-btn" id="tabRegistro">Registrarse</button>
+            </div>
+
+            <!-- FORMULARIO DE LOGIN -->
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="loginEmail">Correo electrónico</label>
+                    <input type="email" id="loginEmail" placeholder="juan@correo.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Contraseña</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Ingresar</button>
+            </form>
+
+            <!-- FORMULARIO DE REGISTRO -->
+            <form id="registroForm" class="auth-form hidden">
+                <div class="form-group">
+                    <label for="regNombre">Nombre completo</label>
+                    <input type="text" id="regNombre" placeholder="Juan Suárez">
+                </div>
+
+                <div class="form-group">
+                    <label for="regEmail">Correo electrónico</label>
+                    <input type="email" id="regEmail" placeholder="juan@correo.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="regTelefono">Teléfono</label>
+                    <input type="tel" id="regTelefono" placeholder="5512345678">
+                </div>
+
+                <div class="form-group">
+                    <label for="regPassword">Contraseña</label>
+                    <input type="password" id="regPassword" placeholder="Al menos 6 caracteres">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Crear cuenta</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script type="module">
+        import { authService } from './js/services/AuthService.js';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabLogin = document.querySelector('#tabLogin');
+            const tabRegistro = document.querySelector('#tabRegistro');
+            const loginForm = document.querySelector('#loginForm');
+            const registroForm = document.querySelector('#registroForm');
+
+            // Cambio de pestañas
+            tabLogin.addEventListener('click', (e) => {
+                e.preventDefault();
+                tabLogin.classList.add('active');
+                tabRegistro.classList.remove('active');
+                loginForm.classList.remove('hidden');
+                registroForm.classList.add('hidden');
+            });
+
+            tabRegistro.addEventListener('click', (e) => {
+                e.preventDefault();
+                tabRegistro.classList.add('active');
+                tabLogin.classList.remove('active');
+                registroForm.classList.remove('hidden');
+                loginForm.classList.add('hidden');
+            });
+
+            // Enviar Login
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.querySelector('#loginEmail').value.trim();
+                const password = document.querySelector('#loginPassword').value;
+
+                try {
+                    authService.login(email, password);
+                    window.location.href = 'dashboard.html';
+                } catch (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error de acceso',
+                        text: error.message,
+                    });
+                }
+            });
+
+            // Enviar Registro
+            registroForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const nombre = document.querySelector('#regNombre').value.trim();
+                const email = document.querySelector('#regEmail').value.trim();
+                const telefono = document.querySelector('#regTelefono').value.trim();
+                const password = document.querySelector('#regPassword').value;
+
+                if (!nombre || !email || !telefono || !password) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Campos incompletos',
+                        text: 'Por favor llena todos los campos para registrarte.',
+                    });
+                    return;
+                }
+
+                if (password.length < 6) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Contraseña débil',
+                        text: 'La contraseña debe tener al menos 6 caracteres.',
+                    });
+                    return;
+                }
+
+                try {
+                    authService.register({ nombre, email, telefono, password });
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Cuenta creada!',
+                        text: 'Tu usuario y cuenta han sido registrados.',
+                    }).then(() => {
+                        window.location.href = 'dashboard.html';
+                    });
+                } catch (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error al registrar',
+                        text: error.message,
+                    });
+                }
+            });
+        });
+    </script>
 </body>
+
 </html>

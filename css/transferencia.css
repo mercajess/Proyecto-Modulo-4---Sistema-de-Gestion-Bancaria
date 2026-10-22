@@ -1,0 +1,105 @@
+/* =========================================
+   PÁGINA DE TRANSFERENCIAS Y OPERACIONES
+========================================= */
+
+.app-transferencia {
+    min-height: 100vh;
+    background-color: #f4f6f8;
+}
+
+.transferencia-content {
+    width: min(1150px, 92%);
+    margin: 32px auto;
+    display: grid;
+    gap: 24px;
+}
+
+/* =========================================
+   ENCABEZADO DE OPERACIONES
+========================================= */
+
+.transferencia-header {
+    padding: 28px;
+    background-color: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.transferencia-header h2 {
+    margin: 6px 0;
+}
+
+.transferencia-header p {
+    color: #6b7280;
+}
+
+/* =========================================
+   GRILLA DE FORMULARIOS
+========================================= */
+
+.transferencia-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.operacion-card {
+    padding: 28px;
+    background-color: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.operacion-card h3 {
+    font-size: 1.25rem;
+    color: #111827;
+}
+
+.operacion-card p {
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.operacion-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.operacion-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.operacion-form label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+.operacion-form input {
+    padding: 10px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.operacion-form input:focus {
+    border-color: #2563eb;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 768px) {
+    .transferencia-grid {
+        grid-template-columns: 1fr;
+    }
+}

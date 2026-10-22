@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+
+    <title>
+        Movimientos |
+        Sistema de Gestión Bancaria
+    </title>
+
+
+    <!-- =====================================
+         ESTILOS GENERALES
+    ====================================== -->
+
+    <link
+        rel="stylesheet"
+        href="./css/styles.css"
+    >
+
+
+    <!-- =====================================
+         ESTILOS DE MOVIMIENTOS
+    ====================================== -->
+
+    <link
+        rel="stylesheet"
+        href="./css/movimientos.css"
+    >
+
+</head>
+
+
+<body class="app-movimientos">
+
+
+    <!-- =====================================
+         CABECERA
+    ====================================== -->
+
+    <header class="topbar">
+
+        <div>
+
+            <h1>
+                Banco Digital
+            </h1>
+
+
+            <p>
+                Sistema de Gestión Bancaria
+            </p>
+
+        </div>
+
+
+        <button
+            type="button"
+            id="logoutBtn"
+            class="btn btn-secondary"
+        >
+            Cerrar sesión
+        </button>
+
+    </header>
+
+
+    <!-- =====================================
+         NAVEGACIÓN
+    ====================================== -->
+
+    <nav class="dashboard-nav">
+
+        <a href="dashboard.html">
+            Dashboard
+        </a>
+
+
+        <a href="cuenta.html">
+            Mi cuenta
+        </a>
+
+
+        <a
+            href="movimientos.html"
+            class="active"
+        >
+            Movimientos
+        </a>
+
+
+        <a href="transferencia.html">
+            Transferencias
+        </a>
+
+    </nav>
+
+
+    <!-- =====================================
+         CONTENIDO DINÁMICO
+    ====================================== -->
+
+    <main
+        class="movimientos-content"
+        id="movimientosRoot"
+    >
+    </main>
+
+
+    <!-- =====================================
+         SWEETALERT2
+    ====================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/sweetalert2@11"
+    ></script>
+
+
+    <!-- =====================================
+         MÓDULO DE MOVIMIENTOS
+    ====================================== -->
+
+    <script
+        type="module"
+        src="./js/ui/MovimientosUI.js"
+    ></script>
+
+</body>
+
+</html>

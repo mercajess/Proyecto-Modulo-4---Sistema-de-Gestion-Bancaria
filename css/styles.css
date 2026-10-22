@@ -1,5 +1,5 @@
 /* ========================================= 
-   RESETEO GENERAL
+   RESETEO Y CONFIGURACIÓN GLOBAL
 ========================================= */
 * {
     box-sizing: border-box;
@@ -7,40 +7,218 @@
     padding: 0;
 }
 
-/* ========================================= 
-   CONFIGURACIÓN GENERAL DE LA PÁGINA 
-========================================= */
 body {
     min-height: 100vh;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: #f4f6f8;
     color: #1f2937;
 }
 
 /* ========================================= 
-   CONTENEDOR PRINCIPAL 
+   CABECERA PRINCIPAL (TOPBAR)
 ========================================= */
-.app {
-    min-height: 100vh;
+.topbar {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.topbar h1 {
+    font-size: 1.25rem;
+    color: #111827;
+}
+
+.topbar p {
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+/* ========================================= 
+   NAVEGACIÓN MULTIPÁGINA
+========================================= */
+.dashboard-nav {
+    background-color: #1e293b;
+    padding: 0 24px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+}
+
+.dashboard-nav a {
+    color: #94a3b8;
+    text-decoration: none;
+    padding: 14px 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.dashboard-nav a:hover {
+    color: #f8fafc;
+}
+
+.dashboard-nav a.active {
+    color: #ffffff;
+    border-bottom-color: #2563eb;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* ========================================= 
+   BOTONES
+========================================= */
+.btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-primary {
+    background-color: #2563eb;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-secondary {
+    background-color: #f3f4f6;
+    color: #374151;
+    border: 1px solid #d1d5db;
+}
+
+.btn-secondary:hover {
+    background-color: #e5e7eb;
+}
+
+.btn-danger {
+    background-color: #dc2626;
+    color: #ffffff;
+}
+
+.btn-danger:hover {
+    background-color: #b91c1c;
+}
+
+/* ========================================= 
+   DASHBOARD & CUENTA GENERAL
+========================================= */
+.dashboard-content,
+.cuenta-content {
+    width: min(1150px, 92%);
+    margin: 32px auto;
+    display: grid;
+    gap: 24px;
+}
+
+.dashboard-welcome,
+.cuenta-header {
+    padding: 28px;
+    background-color: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #2563eb;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+}
+
+.dash-card {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    gap: 8px;
+}
+
+.dash-card span {
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.dash-card strong {
+    font-size: 1.5rem;
+    color: #111827;
+}
+
+.dashboard-account-panel,
+.cuenta-section {
+    padding: 28px;
+    background-color: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.cuenta-section.peligro {
+    border: 1px solid #fca5a5;
+    background-color: #fff5f5;
+}
+
+.account-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 16px;
-    padding: 24px;
-    text-align: center;
+    margin-top: 16px;
 }
 
-/* ========================================= 
-   TÍTULO PRINCIPAL 
-========================================= */
-.app h1 {
-    font-size: 2rem;
+.account-details small {
+    color: #6b7280;
+    font-size: 0.8rem;
 }
 
-/* ========================================= 
-   PÁRRAFOS 
-========================================= */
-.app p {
+.account-details p {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-top: 4px;
+}
+
+.account-balance {
+    color: #166534;
+}
+
+.cuenta-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 480px;
+    margin-top: 16px;
+}
+
+.cuenta-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.cuenta-form label {
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.cuenta-form input {
+    padding: 10px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
     font-size: 1rem;
 }

@@ -1,3 +1,6 @@
+/* =========================================
+   MODELO BANCO
+========================================= */
 import { Movimiento } from './Movimiento.js';
 
 export class Banco {
@@ -46,8 +49,12 @@ export class Banco {
     }
 
     buscarCuentaPorNumero(numeroCuenta) {
-        return this.cuentas.find((cuenta) => cuenta.numeroCuenta === numeroCuenta) || null;
-    }
+    if (!numeroCuenta) return null;
+    const numeroLimpio = numeroCuenta.toString().replace(/\s+/g, '').trim();
+    return this.cuentas.find(
+        (cuenta) => cuenta.numeroCuenta.toString().replace(/\s+/g, '').trim() === numeroLimpio,
+    ) || null;
+}
 
     obtenerCuentasDeUsuario(usuarioId) {
         return this.cuentas.filter((cuenta) => cuenta.usuarioId === usuarioId);
@@ -80,8 +87,60 @@ export class Banco {
         });
 
         this.registrarMovimiento(movimiento);
-
         return movimiento;
+    }
+
+    realizarTransferencia({ cuentaOrigenId, numeroCuentaDestino, monto, descripcion = '' }) {
+        const montoNumerico = Number(monto);
+        if (!Number.isFinite(montoNumerico) || montoNumerico <= 0) {
+            throw new Error('El monto debe ser un número mayor a cero.');
+        }
+
+        const cuentaOrigen = this.buscarCuentaPorId(cuentaOrigenId);
+        if (!cuentaOrigen) {
+            throw new Error('La cuenta de origen no existe.');
+        }
+
+        const cuentaDestino = this.buscarCuentaPorNumero(numeroCuentaDestino);
+        if (!cuentaDestino) {
+            throw new Error('La cuenta de destino no existe.');
+        }
+
+        if (cuentaOrigen.id === cuentaDestino.id) {
+            throw new Error('No puedes realizar una transferencia a la misma cuenta.');
+        }
+
+        if (cuentaOrigen.saldo < montoNumerico) {
+            throw new Error('Saldo insuficiente para realizar la transferencia.');
+        }
+
+        cuentaOrigen.retirar(montoNumerico);
+        cuentaDestino.depositar(montoNumerico);
+
+        // Movimiento para la cuenta origen (salida)
+        const movimientoSalida = new Movimiento({
+            tipo: 'TRANSFERENCIA_ENVIADA',
+            monto: montoNumerico,
+            descripcion: descripcion || `Transferencia a ${cuentaDestino.numeroCuenta}`,
+            cuentaOrigen: cuentaOrigen.id,
+            cuentaDestino: cuentaDestino.id,
+            saldoResultante: cuentaOrigen.saldo,
+        });
+
+        // Movimiento para la cuenta destino (entrada)
+        const movimientoEntrada = new Movimiento({
+            tipo: 'TRANSFERENCIA_RECIBIDA',
+            monto: montoNumerico,
+            descripcion: descripcion || `Transferencia de ${cuentaOrigen.numeroCuenta}`,
+            cuentaOrigen: cuentaOrigen.id,
+            cuentaDestino: cuentaDestino.id,
+            saldoResultante: cuentaDestino.saldo,
+        });
+
+        this.registrarMovimiento(movimientoSalida);
+        this.registrarMovimiento(movimientoEntrada);
+
+        return { movimientoSalida, movimientoEntrada };
     }
 
     obtenerMovimientosDeCuenta(cuentaId) {

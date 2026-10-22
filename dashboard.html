@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Sistema de Gestión Bancaria</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body class="app-dashboard">
+
+    <header class="topbar">
+        <div>
+            <h1>Banco Digital</h1>
+            <p>Sistema de Gestión Bancaria</p>
+        </div>
+        <button type="button" id="logoutBtn" class="btn btn-secondary">
+            Cerrar sesión
+        </button>
+    </header>
+
+    <nav class="dashboard-nav">
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="cuenta.html">Mi cuenta</a>
+        <a href="movimientos.html">Movimientos</a>
+        <a href="transferencia.html">Transferencias</a>
+    </nav>
+
+    <main class="dashboard-content" id="dashboardRoot">
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="./js/ui/DashboardUI.js"></script>
+</body>
+
+</html>
